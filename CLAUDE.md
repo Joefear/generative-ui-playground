@@ -48,6 +48,60 @@ Agent-composed declarative JSON UI, rendered dynamically.
 - A2UIRenderer processes activity messages
 - **Files**: `a2a-agent/agent/*.py`
 
+## Widget Builder
+
+A dedicated page (`/widget-builder`) for designing and editing A2UI widgets.
+
+### Features
+- **Create View**: AI-powered widget generation
+- **Gallery**: 15 pre-built widget templates
+- **Components**: Documentation for all 18 A2UI components
+- **Icons**: Searchable grid of 100+ Material Icons
+- **Editor**: Monaco JSON editor with visual preview
+- **Persistence**: Save widgets to localStorage
+
+### Behavior
+
+**Chat Sidebar**: Only visible in Editor view. Hidden on Create, Gallery, Components, and Icons views to provide a cleaner browsing experience.
+
+**Create Flow**: When user enters a description and clicks Create:
+1. Switches to Editor view with chat sidebar
+2. Description is auto-sent to the A2UI agent
+3. Agent responds with generated widget in chat
+
+### File Structure
+
+```
+src/app/widget-builder/
+├── page.tsx                      # Main page, state management
+├── components/
+│   ├── WidgetBuilderLayout.tsx   # 3-column grid layout
+│   ├── NavigationSidebar.tsx     # Left nav + saved widgets
+│   ├── EditorPanel.tsx           # Monaco editors + preview
+│   ├── BuilderChatSidebar.tsx    # CopilotKit chat with A2UI
+│   ├── WidgetPreview.tsx         # Visual component tree
+│   └── SavedWidgetsList.tsx      # Saved widgets list
+├── views/
+│   ├── CreateView.tsx            # AI widget creation
+│   ├── GalleryView.tsx           # Template gallery
+│   ├── ComponentsView.tsx        # Component docs
+│   └── IconsView.tsx             # Icons reference
+├── data/
+│   ├── gallery-templates.ts      # 15 widget templates
+│   ├── components-docs.ts        # Component documentation
+│   └── icons.ts                  # Material Icons list
+└── hooks/
+    └── useWidgetStorage.ts       # localStorage persistence
+```
+
+### Adding Templates
+
+Edit `data/gallery-templates.ts` and add a new template object with id, name, description, tags, components array, and data object.
+
+### Adding Component Documentation
+
+Edit `data/components-docs.ts` with name, category, description, props array, and example.
+
 ## Development
 
 ### Start All Services

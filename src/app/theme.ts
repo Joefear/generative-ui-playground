@@ -9,7 +9,7 @@ import { v0_8 } from "@a2ui/lit";
 
 // Base element styles
 const a = {
-  "typography-f-sf": true,
+  "typography-f-s": true,
   "typography-fs-n": true,
   "typography-w-500": true,
   "layout-as-n": true,
@@ -19,7 +19,7 @@ const a = {
 };
 
 const body = {
-  "typography-f-sf": true,
+  "typography-f-s": true,
   "typography-fs-n": true,
   "typography-w-400": true,
   "layout-mt-0": true,
@@ -46,9 +46,9 @@ const button = {
 };
 
 const heading = {
-  "typography-f-sf": true,
+  "typography-f-s": true,
   "typography-fs-n": true,
-  "typography-w-600": true,
+  "typography-w-500": true,
   "layout-mt-0": true,
   "layout-mb-2": true,
   "color-c-n10": true,
@@ -70,7 +70,7 @@ const input = {
   "layout-pb-2": true,
   "border-br-8": true,
   "border-bw-1": true,
-  "color-bc-p60": true,
+  "color-bc-s70": true,
   "border-bs-s": true,
   "layout-as-n": true,
   "color-c-n10": true,
@@ -78,7 +78,7 @@ const input = {
 };
 
 const p = {
-  "typography-f-sf": true,
+  "typography-f-s": true,
   "typography-fs-n": true,
   "typography-w-400": true,
   "layout-m-0": true,
@@ -97,7 +97,7 @@ const pre = {
 };
 
 const orderedList = {
-  "typography-f-sf": true,
+  "typography-f-s": true,
   "typography-fs-n": true,
   "typography-w-400": true,
   "layout-m-0": true,
@@ -114,6 +114,23 @@ const textarea = {
   "layout-r-none": true,
   "layout-fs-c": true,
 };
+
+// Light theme variants for better text visibility
+const aLight = v0_8.Styles.merge(a, { "color-c-n5": true });
+const bodyLight = v0_8.Styles.merge(body, { "color-c-n5": true });
+const buttonLight = v0_8.Styles.merge(button, { "color-c-n5": true });
+const h1Light = v0_8.Styles.merge(h1, { "color-c-n5": true });
+const h2Light = v0_8.Styles.merge(h2, { "color-c-n5": true });
+const h3Light = v0_8.Styles.merge(h3, { "color-c-n5": true });
+const h4Light = v0_8.Styles.merge(h4, { "color-c-n5": true });
+const h5Light = v0_8.Styles.merge(h5, { "color-c-n5": true });
+const inputLight = v0_8.Styles.merge(input, { "color-c-n5": true });
+const pLight = v0_8.Styles.merge(p, { "color-c-n35": true });
+const preLight = v0_8.Styles.merge(pre, { "color-c-n5": true });
+const textareaLight = v0_8.Styles.merge(textarea, { "color-c-n5": true });
+const orderedListLight = v0_8.Styles.merge(orderedList, { "color-c-n35": true });
+const unorderedListLight = v0_8.Styles.merge(unorderedList, { "color-c-n35": true });
+const listItemLight = v0_8.Styles.merge(listItem, { "color-c-n35": true });
 
 // Theme export using v0.8 structure
 export const a2uiTheme: v0_8.Types.Theme = {
@@ -138,7 +155,7 @@ export const a2uiTheme: v0_8.Types.Theme = {
       "behavior-ho-70": true,
     },
     Card: {
-      "border-br-12": true,
+      "border-br-9": true,
       "color-bgc-p100": true,
       "layout-p-4": true,
     },
@@ -147,7 +164,7 @@ export const a2uiTheme: v0_8.Types.Theme = {
         "layout-m-0": true,
         "layout-mr-2": true,
         "layout-p-2": true,
-        "border-br-6": true,
+        "border-br-12": true,
         "border-bw-1": true,
         "border-bs-s": true,
         "color-bgc-p100": true,
@@ -169,7 +186,7 @@ export const a2uiTheme: v0_8.Types.Theme = {
       },
     },
     Column: {
-      "layout-g-3": true,
+      "layout-g-2": true,
     },
     DateTimeInput: {
       container: {
@@ -187,7 +204,7 @@ export const a2uiTheme: v0_8.Types.Theme = {
         "layout-pb-2": true,
         "layout-pl-3": true,
         "layout-pr-3": true,
-        "border-br-8": true,
+        "border-br-12": true,
         "border-bw-1": true,
         "border-bs-s": true,
         "color-bgc-p100": true,
@@ -199,7 +216,7 @@ export const a2uiTheme: v0_8.Types.Theme = {
     Divider: {},
     Image: {
       all: {
-        "border-br-8": true,
+        "border-br-5": true,
         "layout-el-cv": true,
         "layout-w-100": true,
         "layout-h-100": true,
@@ -249,44 +266,44 @@ export const a2uiTheme: v0_8.Types.Theme = {
       all: {
         "layout-w-100": true,
         "layout-g-2": true,
-        "color-c-p30": true,
+        "color-c-n30": true, // Neutral dark gray instead of lilac
       },
       h1: {
-        "typography-f-sf": true,
+        "typography-f-s": true,
         "typography-v-r": true,
-        "typography-w-600": true,
+        "typography-w-400": true,
         "layout-m-0": true,
         "layout-p-0": true,
         "typography-sz-tl": true,
       },
       h2: {
-        "typography-f-sf": true,
+        "typography-f-s": true,
         "typography-v-r": true,
-        "typography-w-600": true,
+        "typography-w-400": true,
         "layout-m-0": true,
         "layout-p-0": true,
         "typography-sz-tm": true,
       },
       h3: {
-        "typography-f-sf": true,
+        "typography-f-s": true,
         "typography-v-r": true,
-        "typography-w-500": true,
+        "typography-w-400": true,
         "layout-m-0": true,
         "layout-p-0": true,
         "typography-sz-ts": true,
       },
       h4: {
-        "typography-f-sf": true,
+        "typography-f-s": true,
         "typography-v-r": true,
-        "typography-w-500": true,
+        "typography-w-400": true,
         "layout-m-0": true,
         "layout-p-0": true,
         "typography-sz-bl": true,
       },
       h5: {
-        "typography-f-sf": true,
+        "typography-f-s": true,
         "typography-v-r": true,
-        "typography-w-500": true,
+        "typography-w-400": true,
         "layout-m-0": true,
         "layout-p-0": true,
         "typography-sz-bm": true,
@@ -311,7 +328,7 @@ export const a2uiTheme: v0_8.Types.Theme = {
         "layout-pb-2": true,
         "layout-pl-3": true,
         "layout-pr-3": true,
-        "border-br-8": true,
+        "border-br-12": true,
         "border-bw-1": true,
         "border-bs-s": true,
         "color-bgc-p100": true,
@@ -321,25 +338,25 @@ export const a2uiTheme: v0_8.Types.Theme = {
       },
     },
     Video: {
-      "border-br-8": true,
+      "border-br-5": true,
       "layout-el-cv": true,
     },
   },
   elements: {
-    a,
+    a: aLight,
     audio: { "layout-w-100": true },
-    body,
-    button,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
+    body: bodyLight,
+    button: buttonLight,
+    h1: h1Light,
+    h2: h2Light,
+    h3: h3Light,
+    h4: h4Light,
+    h5: h5Light,
     iframe: { "behavior-sw-n": true },
-    input,
-    p,
-    pre,
-    textarea,
+    input: inputLight,
+    p: pLight,
+    pre: preLight,
+    textarea: textareaLight,
     video: { "layout-el-cv": true },
   },
   markdown: {

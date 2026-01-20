@@ -22,6 +22,7 @@
     "@copilotkitnext/runtime": "^1.51.0-next.4",
     "@copilotkitnext/shared": "^1.51.0-next.4",
     "@copilotkitnext/web-inspector": "1.51.0-next.4",
+    "@monaco-editor/react": "^4.7.0",
     "hono": "^4.11.4",
     "next": "16.1.3",
     "react": "19.2.3",

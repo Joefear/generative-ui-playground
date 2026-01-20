@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 // All modes use @copilotkitnext packages
 import { CopilotKitProvider, CopilotSidebar } from "@copilotkitnext/react";
 // A2UI mode: separate component with A2UI-specific configuration
@@ -57,9 +58,17 @@ function PageContent({
           <div className="max-w-3xl mx-auto">
             {/* Header */}
             <header className="text-center mb-8">
-              <h1 className="text-4xl font-bold mb-4">
-                <span className="text-gradient">Generative UI</span> Protocols
-              </h1>
+              <div className="flex justify-center items-center gap-4 mb-4">
+                <h1 className="text-4xl font-bold">
+                  <span className="text-gradient">Generative UI</span> Protocols
+                </h1>
+                <Link
+                  href="/widget-builder"
+                  className="px-3 py-1.5 text-sm bg-[#9f8fef]/20 text-[#383b99] rounded-full hover:bg-[#9f8fef]/30 transition-colors font-medium"
+                >
+                  Widget Builder →
+                </Link>
+              </div>
               <p className="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
                 Explore three approaches to building AI-powered user interfaces with CopilotKit
               </p>
