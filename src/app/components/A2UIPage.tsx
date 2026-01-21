@@ -16,11 +16,10 @@ const A2UIRenderer = createA2UIMessageRenderer({ theme: a2uiTheme });
 const activityRenderers = [A2UIRenderer];
 
 interface A2UIPageProps {
-  onSwitchMode: () => void;
   children: React.ReactNode;
 }
 
-export function A2UIPage({ onSwitchMode, children }: A2UIPageProps) {
+export function A2UIPage({ children }: A2UIPageProps) {
   return (
     <CopilotKitProvider
       runtimeUrl="/api/copilotkit-a2ui"

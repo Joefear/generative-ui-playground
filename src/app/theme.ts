@@ -68,7 +68,7 @@ const input = {
   "layout-pr-4": true,
   "layout-pt-2": true,
   "layout-pb-2": true,
-  "border-br-8": true,
+  "border-br-12": true,
   "border-bw-1": true,
   "color-bc-s70": true,
   "border-bs-s": true,
@@ -128,9 +128,6 @@ const inputLight = v0_8.Styles.merge(input, { "color-c-n5": true });
 const pLight = v0_8.Styles.merge(p, { "color-c-n35": true });
 const preLight = v0_8.Styles.merge(pre, { "color-c-n5": true });
 const textareaLight = v0_8.Styles.merge(textarea, { "color-c-n5": true });
-const orderedListLight = v0_8.Styles.merge(orderedList, { "color-c-n35": true });
-const unorderedListLight = v0_8.Styles.merge(unorderedList, { "color-c-n35": true });
-const listItemLight = v0_8.Styles.merge(listItem, { "color-c-n35": true });
 
 // Theme export using v0.8 structure
 export const a2uiTheme: v0_8.Types.Theme = {

@@ -354,6 +354,26 @@ div[data-sidebar-chat] > div > div {
   padding-right: 8px !important;
 }
 
+/* Widget Builder embedded CopilotChat overrides */
+[data-copilot-chat] {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  --copilot-kit-background-color: rgba(247, 247, 249, 0.95) !important;
+  --copilot-kit-secondary-color: rgba(255, 255, 255, 0.7) !important;
+  --copilot-kit-primary-color: var(--color-lilac) !important;
+}
+
+[data-copilot-chat] .copilotkit-message {
+  font-family: var(--font-family);
+}
+
+[data-copilot-chat] textarea,
+[data-copilot-chat] input {
+  font-family: var(--font-family);
+  border-radius: var(--radius-lg);
+}
+
 /* =============================================================================
    UTILITY CLASSES
 ============================================================================= */

@@ -111,7 +111,7 @@ def create_agent_card(base_url: str) -> AgentCard:
 
 @click.command()
 @click.option("--host", default="0.0.0.0", help="Host to bind to")
-@click.option("--port", default=10002, help="Port to listen on")
+@click.option("--port", default=10002, envvar="PORT", help="Port to listen on")
 def main(host: str, port: int):
     """Start the A2A UI Generator agent server."""
 

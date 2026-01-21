@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 // All modes use @copilotkitnext packages
 import { CopilotKitProvider, CopilotSidebar } from "@copilotkitnext/react";
 // A2UI mode: separate component with A2UI-specific configuration
@@ -60,14 +59,16 @@ function PageContent({
             <header className="text-center mb-8">
               <div className="flex justify-center items-center gap-4 mb-4">
                 <h1 className="text-4xl font-bold">
-                  <span className="text-gradient">Generative UI</span> Protocols
+                  <span className="text-gradient">Generative UI</span> Specs
                 </h1>
-                <Link
-                  href="/widget-builder"
+                <a
+                  href="https://a2ui-composer.ag-ui.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="px-3 py-1.5 text-sm bg-[#9f8fef]/20 text-[#383b99] rounded-full hover:bg-[#9f8fef]/30 transition-colors font-medium"
                 >
-                  Widget Builder →
-                </Link>
+                  Widget Builder ↗
+                </a>
               </div>
               <p className="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
                 Explore three approaches to building AI-powered user interfaces with CopilotKit
@@ -133,6 +134,36 @@ function PageContent({
                   </>
                 )}
               </div>
+              {/* Surprise Me button - picks a random prompt */}
+              <button
+                onClick={() => {
+                  const defaultPrompts = [
+                    "What's the weather on Mars right now?",
+                    "Get stock price for PIZZA (it's definitely a ticker)",
+                    "Open the calculator - I need to split a $47.83 bill 7 ways",
+                    "Search for flights to Atlantis",
+                    "Show me hotels near the North Pole for Christmas",
+                    "I need to approve purchasing 1000 rubber ducks for the office",
+                    "What's the weather like in Mordor?",
+                    "Search for flights to Wakanda, business class",
+                    "I need to approve a $50M budget for a pizza party",
+                  ];
+                  const a2uiPrompts = [
+                    "Find restaurants that serve food from fictional countries",
+                    "Show me places where I can eat like a hobbit",
+                    "Book a table for 47 people, we're having a flash mob dinner",
+                    "Find sushi places run by actual robots",
+                    "Show me restaurants with secret menus",
+                    "Find a place that serves breakfast at midnight",
+                  ];
+                  const prompts = activeAgent === "default" ? defaultPrompts : a2uiPrompts;
+                  const randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+                  sendMessage(randomPrompt);
+                }}
+                className="mt-4 px-4 py-2 bg-gradient-to-r from-[#9f8fef] to-[#7dd3c0] text-white rounded-full font-medium hover:opacity-90 transition-opacity flex items-center gap-2 mx-auto"
+              >
+                <span>🎲</span> Surprise Me
+              </button>
             </div>
           </div>
         </div>
@@ -161,7 +192,7 @@ export default function Home() {
   // (different API endpoint, A2UI renderer, etc.)
   if (activeAgent === "a2ui") {
     return (
-      <A2UIPage onSwitchMode={() => setActiveAgent("default")}>
+      <A2UIPage>
         <PageContent
           activeAgent={activeAgent}
           setActiveAgent={setActiveAgent}
