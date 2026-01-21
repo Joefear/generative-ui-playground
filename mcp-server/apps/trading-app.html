@@ -1003,17 +1003,18 @@
       el.loading.classList.add("hidden");
       el.content.classList.remove("hidden");
 
-      // Portfolio header
+      // Portfolio header - server uses cashBalance, totalGain
       el.totalValue.textContent = fmt(portfolio.totalValue);
-      el.cashAmount.textContent = fmt(portfolio.cash);
+      el.cashAmount.textContent = fmt(portfolio.cashBalance);
 
-      // Profit/loss styling
-      const plClass = portfolio.totalProfitLoss >= 0 ? "positive" : "negative";
-      el.totalPl.textContent = `${portfolio.totalProfitLoss >= 0 ? "+" : ""}${fmt(portfolio.totalProfitLoss)}`;
+      // Profit/loss styling - server uses totalGain not totalProfitLoss
+      const totalGain = portfolio.totalGain || 0;
+      const plClass = totalGain >= 0 ? "positive" : "negative";
+      el.totalPl.textContent = `${totalGain >= 0 ? "+" : ""}${fmt(totalGain)}`;
       el.totalPl.className = `profit-loss ${plClass}`;
 
-      const initVal = portfolio.totalValue - portfolio.totalProfitLoss;
-      el.totalPlPercent.textContent = `(${fmtPct(initVal > 0 ? (portfolio.totalProfitLoss / initVal) * 100 : 0)})`;
+      const initVal = portfolio.totalValue - totalGain;
+      el.totalPlPercent.textContent = `(${fmtPct(initVal > 0 ? (totalGain / initVal) * 100 : 0)})`;
 
       renderChart();
       renderPie();
@@ -1039,8 +1040,12 @@
     }
 
     function renderPie() {
-      const s = portfolio.allocation?.stocks || 0;
-      const c = portfolio.allocation?.cash || 0;
+      // Calculate allocation from portfolio data (server doesn't provide allocation object)
+      const cashValue = portfolio.cashBalance || 0;
+      const totalValue = portfolio.totalValue || 1;
+      const stocksValue = totalValue - cashValue;
+      const s = Math.round((stocksValue / totalValue) * 100);
+      const c = 100 - s;
       el.pieChart.style.background = `conic-gradient(var(--color-lilac) 0% ${s}%, var(--color-border) ${s}% 100%)`;
       el.stocksPercent.textContent = `${s}%`;
       el.cashPercent.textContent = `${c}%`;
@@ -1056,9 +1061,11 @@
       }
 
       el.holdingsList.innerHTML = h.map(x => {
-        const cls = x.profitLoss >= 0 ? "positive" : "negative";
-        const sign = x.profitLoss >= 0 ? "+" : "";
-        const icon = x.profitLoss >= 0 ? icons.trendingUp : icons.trendingDown;
+        // Server uses 'gain' not 'profitLoss'
+        const gain = x.gain || 0;
+        const cls = gain >= 0 ? "positive" : "negative";
+        const sign = gain >= 0 ? "+" : "";
+        const icon = gain >= 0 ? icons.trendingUp : icons.trendingDown;
 
         return `
           <div class="holding-row">
@@ -1068,7 +1075,7 @@
             </div>
             <div class="text-right mr-2">
               <div class="holding-value">${fmt(x.value)}</div>
-              <div class="holding-pl profit-loss ${cls}">${icon} ${sign}${fmt(x.profitLoss)}</div>
+              <div class="holding-pl profit-loss ${cls}">${icon} ${sign}${fmt(gain)}</div>
             </div>
             <button class="btn btn-danger btn-sm" data-action="sell" data-symbol="${x.symbol}" data-price="${x.currentPrice}" data-max="${x.shares}">Sell</button>
           </div>
@@ -1154,8 +1161,8 @@
       }
 
       const total = qty * currentTrade.price;
-      if (currentTrade.action === "buy" && total > portfolio.cash) {
-        alert(`Insufficient funds. Available: ${fmt(portfolio.cash)}`);
+      if (currentTrade.action === "buy" && total > portfolio.cashBalance) {
+        alert(`Insufficient funds. Available: ${fmt(portfolio.cashBalance)}`);
         return;
       }
 

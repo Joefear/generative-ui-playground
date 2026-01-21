@@ -1227,16 +1227,34 @@
 
       $('resultsSubtitle').textContent = `${state.hotels.length} hotels in ${state.searchParams.city}`;
 
+      // Calculate nights for price display
+      const checkInDate = new Date(state.searchParams.checkIn);
+      const checkOutDate = new Date(state.searchParams.checkOut);
+      const nights = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+
       state.hotels.forEach(hotel => {
         const card = document.createElement('div');
         card.className = 'hotel-card glass';
         card.dataset.hotelId = hotel.id;
 
-        const stars = '★'.repeat(hotel.stars) + '☆'.repeat(5 - hotel.stars);
+        // Use Math.floor for star rating (rating is out of 5)
+        const starCount = Math.min(5, Math.floor(hotel.rating));
+        const stars = '★'.repeat(starCount) + '☆'.repeat(5 - starCount);
+
+        // Amenities are objects with {id, name, icon} - extract the name and icon
         const amenitiesHtml = hotel.amenities.slice(0, 4).map(a => {
-          const icon = AMENITY_ICONS[a] || '';
-          return `<span class="amenity-tag">${icon} ${a}</span>`;
+          const amenityName = typeof a === 'string' ? a : a.name;
+          const amenityIcon = typeof a === 'string' ? a : (a.icon || a.id);
+          const icon = AMENITY_ICONS[amenityIcon] || '';
+          return `<span class="amenity-tag">${icon} ${amenityName}</span>`;
         }).join('');
+
+        // Location from city object
+        const location = hotel.city?.name || hotel.address || 'Location TBD';
+
+        // Price from priceRange
+        const pricePerNight = hotel.priceRange?.min || 0;
+        const totalPrice = pricePerNight * nights * state.rooms;
 
         card.innerHTML = `
           <div class="hotel-header">
@@ -1245,7 +1263,7 @@
               <div class="hotel-stars"><span class="star">${stars}</span></div>
               <div class="hotel-location">
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                ${hotel.neighborhood}
+                ${location}
               </div>
             </div>
             <div class="hotel-rating">
@@ -1257,8 +1275,8 @@
           <div class="hotel-price">
             <div></div>
             <div class="price-info">
-              <div class="price-amount">$${hotel.pricePerNight}</div>
-              <div class="price-label">per night · $${hotel.totalPrice} total</div>
+              <div class="price-amount">$${pricePerNight}</div>
+              <div class="price-label">per night · $${totalPrice} total</div>
             </div>
           </div>
         `;

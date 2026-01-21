@@ -843,17 +843,100 @@
     .card {
       animation: fade-in 0.2s ease;
     }
+
+    /* Create Board Form */
+    .create-board-form {
+      padding: var(--space-6);
+      text-align: center;
+    }
+
+    .create-board-form .form-header {
+      margin-bottom: var(--space-6);
+    }
+
+    .create-board-form .form-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto var(--space-4);
+      background: linear-gradient(135deg, var(--color-lilac), var(--color-mint));
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .create-board-form .form-icon svg {
+      width: 32px;
+      height: 32px;
+      color: white;
+    }
+
+    .create-board-form h2 {
+      font-size: var(--font-size-xl);
+      font-weight: 700;
+      margin-bottom: var(--space-2);
+    }
+
+    .create-board-form p {
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+    }
+
+    .template-list {
+      text-align: left;
+      margin-bottom: var(--space-5);
+    }
+
+    .template-option {
+      padding: var(--space-3) var(--space-4);
+      margin-bottom: var(--space-2);
+      background: var(--color-glass-subtle);
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .template-option strong {
+      color: var(--color-text-primary);
+    }
+
+    #random-btn {
+      margin-top: var(--space-2);
+    }
   </style>
 </head>
 <body>
   <div id="app">
-    <div class="loading">
+    <!-- Loading state (shown during board creation) -->
+    <div class="loading" id="loading" style="display: none;">
       <div class="loading-icon">
-        <!-- layout-grid icon -->
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
       </div>
       <div class="spinner"></div>
       <p class="loading-text">Setting up your board...</p>
+    </div>
+
+    <!-- Create Board Form (shown initially) -->
+    <div class="create-board-form" id="create-form">
+      <div class="form-header">
+        <div class="form-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+        </div>
+        <h2>Create a Board</h2>
+        <p>Tell me the name + template, and I'll create the board.</p>
+      </div>
+      <div class="template-list">
+        <div class="template-option">
+          <strong>Basic</strong> (To Do / Doing / Done)
+        </div>
+        <div class="template-option">
+          <strong>Software Sprint</strong> (Backlog / In Progress / Review / Done)
+        </div>
+        <div class="template-option">
+          <strong>Content Calendar</strong> (Ideas / Drafting / Editing / Scheduled / Published)
+        </div>
+      </div>
+      <button class="btn btn-secondary" id="random-btn">random</button>
     </div>
   </div>
 
@@ -1018,6 +1101,13 @@
     // Render board
     function renderBoard() {
       if (!board) return;
+
+      // Hide create form and loading when board is ready
+      const createForm = document.getElementById("create-form");
+      const loading = document.getElementById("loading");
+      if (createForm) createForm.style.display = "none";
+      if (loading) loading.style.display = "none";
+
       const totalCards = board.columns.reduce((sum, c) => sum + c.cards.length, 0);
 
       const html = `
