@@ -6,7 +6,7 @@ A generative UI playground showcasing three specs for building AI-powered user i
 
 This demo demonstrates how different generative UI specs can be used to create rich, interactive AI experiences:
 
-| Protocol | Description | Use Case |
+| Spec | Description | Use Case |
 |----------|-------------|----------|
 | **Static GenUI** | Pre-built React components rendered by frontend hooks | Weather cards, stock displays, task approvals |
 | **MCP Apps** | HTML/JS apps served by MCP servers in sandboxed iframes | Flight booking, hotel search, trading simulator |
