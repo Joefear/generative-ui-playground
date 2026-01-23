@@ -1,4 +1,4 @@
-# UI Protocols Demo
+# UI Specs Demo
 
 A generative UI playground showcasing three specs for building AI-powered user interfaces with CopilotKit.
 
