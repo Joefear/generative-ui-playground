@@ -1,10 +1,10 @@
-# UI Specs Demo
+# Generative UI Demo
 
-A generative UI playground showcasing three specs for building AI-powered user interfaces with CopilotKit.
+A generative UI playground showcasing the three types for building AI-powered user interfaces with CopilotKit.
 
 ## Demo Overview
 
-This demo demonstrates how different generative UI specs can be used to create rich, interactive AI experiences:
+This demo demonstrates how different types of generative UI can be used to create rich, interactive AI experiences:
 
 | Spec | Description | Use Case |
 |----------|-------------|----------|
@@ -128,6 +128,6 @@ ui-protocols-demo/
 ## Learn More
 
 - [CopilotKit Documentation](https://docs.copilotkit.ai)
-- [Generative UI Protocols](https://www.copilotkit.ai/generative-ui)
+- [Generative UI Types](https://www.copilotkit.ai/generative-ui)
 - [A2UI Specification](https://a2ui.org)
 - [MCP Apps](https://modelcontextprotocol.io)
