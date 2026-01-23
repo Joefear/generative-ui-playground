@@ -1,10 +1,10 @@
 # UI Protocols Demo
 
-A generative UI playground showcasing three protocols for building AI-powered user interfaces with CopilotKit.
+A generative UI playground showcasing three specs for building AI-powered user interfaces with CopilotKit.
 
 ## Demo Overview
 
-This demo demonstrates how different generative UI protocols can be used to create rich, interactive AI experiences:
+This demo demonstrates how different generative UI specs can be used to create rich, interactive AI experiences:
 
 | Protocol | Description | Use Case |
 |----------|-------------|----------|
