@@ -1,5 +1,7 @@
 # Generative UI Demo
 
+https://github.com/user-attachments/assets/79ead351-f63c-4119-9d28-9d604e7f8876
+
 A generative UI playground showcasing the three types for building AI-powered user interfaces with CopilotKit.
 
 ## Demo Overview
