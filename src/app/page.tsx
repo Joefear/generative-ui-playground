@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 // All modes use @copilotkitnext packages
-import { CopilotKitProvider, CopilotSidebar } from "@copilotkitnext/react";
+import { CopilotKitProvider, CopilotSidebar, CopilotPopup } from "@copilotkitnext/react";
+import { useMediaQuery } from "@/hooks/use-media-query";
 // A2UI mode: separate component with A2UI-specific configuration
 import { A2UIPage } from "./components/A2UIPage";
 import { CopilotContextProvider } from "./components/CopilotContextProvider";
@@ -53,12 +54,12 @@ function PageContent({
       {/* Main content with sidebar */}
       <div className="flex min-h-screen">
         {/* Left panel - Protocol info */}
-        <div className="relative z-10 flex-1 p-8 overflow-auto">
+        <div className="relative z-10 flex-1 p-4 md:p-8 overflow-auto">
           <div className="max-w-3xl mx-auto">
             {/* Header */}
             <header className="text-center mb-8">
               <div className="flex justify-center items-center gap-4 mb-4">
-                <h1 className="text-4xl font-bold">
+                <h1 className="text-2xl md:text-4xl font-bold">
                   <span className="text-gradient">Generative UI</span> Specs
                 </h1>
                 <a
@@ -73,6 +74,24 @@ function PageContent({
               <p className="text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
                 Explore three approaches to building AI-powered user interfaces with CopilotKit
               </p>
+              <div className="flex justify-center gap-3 mt-4">
+                <a
+                  href="https://go.copilotkit.ai/generative-ui"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 text-sm bg-gradient-to-r from-[#9f8fef] to-[#7dd3c0] text-white rounded-full hover:opacity-90 transition-opacity font-medium"
+                >
+                  Read more ↗
+                </a>
+                <a
+                  href="https://go.copilotkit.ai/generative-ui-specs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 text-sm bg-white/10 backdrop-blur border border-white/20 text-[var(--color-text-primary)] rounded-full hover:bg-white/20 transition-colors font-medium"
+                >
+                  Docs ↗
+                </a>
+              </div>
             </header>
 
             {/* Agent Switching Tabs */}
@@ -177,6 +196,8 @@ export default function Home() {
   const [activeAgent, setActiveAgent] = useState<"default" | "a2ui">("default");
   // Pending message for cross-mode pill clicks (sent after provider remount)
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
+  // Responsive layout: sidebar on desktop, popup on mobile
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   // Handler for protocol card pill clicks - triggers mode switch if needed
   const handlePillClick = (prompt: string, targetMode: "default" | "a2ui") => {
@@ -209,21 +230,42 @@ export default function Home() {
   return (
     <CopilotKitProvider key="default-provider" runtimeUrl="/api/copilotkit" showDevConsole={false}>
       <CopilotContextProvider>
-        <PageContent
-          activeAgent={activeAgent}
-          setActiveAgent={setActiveAgent}
-          pendingMessage={pendingMessage}
-          clearPendingMessage={clearPendingMessage}
-          onPillClick={handlePillClick}
-        />
-        <CopilotSidebar
-          defaultOpen={true}
-          labels={{
-            modalHeaderTitle: "Static + MCP Apps",
-            chatInputPlaceholder: "Ask about weather, stocks, or try the interactive apps!",
-          }}
-          className="min-w-[400px]"
-        />
+        {isDesktop ? (
+          // Desktop: Sidebar layout
+          <>
+            <PageContent
+              activeAgent={activeAgent}
+              setActiveAgent={setActiveAgent}
+              pendingMessage={pendingMessage}
+              clearPendingMessage={clearPendingMessage}
+              onPillClick={handlePillClick}
+            />
+            <CopilotSidebar
+              defaultOpen={true}
+              labels={{
+                modalHeaderTitle: "Static + MCP Apps",
+                chatInputPlaceholder: "Ask about weather, stocks, or try the interactive apps!",
+              }}
+            />
+          </>
+        ) : (
+          // Mobile: Popup layout
+          <>
+            <PageContent
+              activeAgent={activeAgent}
+              setActiveAgent={setActiveAgent}
+              pendingMessage={pendingMessage}
+              clearPendingMessage={clearPendingMessage}
+              onPillClick={handlePillClick}
+            />
+            <CopilotPopup
+              labels={{
+                modalHeaderTitle: "Static + MCP Apps",
+                chatInputPlaceholder: "Ask about weather, stocks, or try the interactive apps!",
+              }}
+            />
+          </>
+        )}
       </CopilotContextProvider>
     </CopilotKitProvider>
   );
