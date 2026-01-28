@@ -8,15 +8,18 @@
  */
 
 import { useCallback } from "react";
-import { useAgent, useCopilotKit } from "@copilotkitnext/react";
+import { useAgent, useCopilotKit, useCopilotChatConfiguration } from "@copilotkitnext/react";
 import { randomUUID, DEFAULT_AGENT_ID } from "@copilotkitnext/shared";
 
 export function useSendMessage() {
   const { agent } = useAgent({ agentId: DEFAULT_AGENT_ID });
   const { copilotkit } = useCopilotKit();
+  const config = useCopilotChatConfiguration();
 
   const sendMessage = useCallback(
     async (message: string) => {
+      // Open the chat popup when sending a message
+      config?.setModalOpen(true);
       // Add the user message to the chat
       agent.addMessage({ id: randomUUID(), role: "user", content: message });
       try {
@@ -26,7 +29,7 @@ export function useSendMessage() {
         console.error("Failed to run agent:", error);
       }
     },
-    [agent, copilotkit]
+    [agent, copilotkit, config]
   );
 
   return { sendMessage };

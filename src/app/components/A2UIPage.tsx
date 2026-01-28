@@ -46,6 +46,7 @@ export function A2UIPage({ children }: A2UIPageProps) {
         <>
           {children}
           <CopilotPopup
+            defaultOpen={false}
             labels={{
               modalHeaderTitle: "A2UI Assistant",
               chatInputPlaceholder: "Ask me to generate any UI - forms, lists, cards, and more!",

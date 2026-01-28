@@ -259,6 +259,7 @@ export default function Home() {
               onPillClick={handlePillClick}
             />
             <CopilotPopup
+              defaultOpen={false}
               labels={{
                 modalHeaderTitle: "Static + MCP Apps",
                 chatInputPlaceholder: "Ask about weather, stocks, or try the interactive apps!",
